@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="slidebar">
+        <header>
+            <h2>Patients</h2>
+        </header>
+        <div class="scrollbox">
+            <div class="scrollbox-inner">
+                <div class="container mt-3">
+                    <div class="row">
+                        {% if patients %}
+                            {% for patient in patients %}
+                                <div class="col-12 mb-3">
+                                    <div class="card">
+                                        <div class="card-body d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <h5 class="card-title mb-1">Patient ID: {{ patient['id'] }}</h5>
+                                                <p class="card-text">Name: {{ patient['name'] }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="col-12 text-center">
+                                <p>No patients available.</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <h2></h2>
+        </footer>
+    </nav>
+
+    <div class="content">
+        <div class="container mt-5">
+            <!-- Form to Search Patient by ID -->
+            <form action="/find_patient" method="post" class="mt-5">
+                <h3>Search Patient by ID</h3>
+                <div class="mb-3">
+                    <label for="patient_id" class="form-label">Patient ID:</label>
+                    <input type="text" class="form-control" id="patient_id" placeholder="Enter Patient ID" name="patient_id" required>
+                </div>
+                <button type="submit" class="btn btn-secondary">Search</button>
+            </form>
+
+            <!-- Display Search Result -->
+            {% if search_result %}
+                <div class="mt-5">
+                    {% if search_result.found %}
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Patient Found</h5>
+                                <p class="card-text">ID: {{ search_result.patient.id }}</p>
+                                <p class="card-text">Name: {{ search_result.patient.name }}</p>
+                                <p class="card-text">Age: {{ search_result.patient.age }}</p>
+                                <p class="card-text">Gender: {{ search_result.patient.gender }}</p>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="alert alert-danger text-center" role="alert">
+                            {{ search_result.message }}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

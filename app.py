@@ -82,5 +82,54 @@ def add_patient():
     # Retrieve the optional message from the query string
     message = request.args.get('message', '')
     return render_template('Home.html', message=message, patients=data['patients'])
+
+@app.route('/find_patient', methods=['GET', 'POST'])
+def find_patient():
+    with open(json_patients_path, 'r') as f:
+        data = json.load(f)
+
+    patients = sorted(data['patients'], key=lambda x: int(x['id']))  # Sort patients by ID (integer comparison)
+    search_result = None
+
+    if request.method == 'POST':
+        patient_id = request.form['patient_id']  # Get the patient ID from the form
+        try:
+            patient_id = int(patient_id)  # Ensure it's an integer for comparison
+        except ValueError:
+            search_result = {
+                'found': False,
+                'message': "Invalid ID. Please enter a numeric value."
+            }
+            return render_template('Find_Patient.html', patients=patients, search_result=search_result)
+
+        # Binary search to find the patient
+        low, high = 0, len(patients) - 1
+        found_patient = None
+        while low <= high:
+            mid = (low + high) // 2
+            mid_id = int(patients[mid]['id'])
+            if mid_id == patient_id:
+                found_patient = patients[mid]
+                break
+            elif mid_id < patient_id:
+                low = mid + 1
+            else:
+                high = mid - 1
+
+        # Prepare the search result
+        if found_patient:
+            search_result = {
+                'found': True,
+                'patient': found_patient
+            }
+        else:
+            search_result = {
+                'found': False,
+                'message': f"No patient found with ID {patient_id}."
+            }
+
+    # Render the template with search results
+    return render_template('Find_Patient.html', patients=patients, search_result=search_result)
+
         
 
