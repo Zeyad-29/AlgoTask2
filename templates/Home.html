@@ -11,14 +11,14 @@
 <body>
     <nav class="slidebar">
         <header>
-            <h2>Patients</h2>
+            <h2>Patients
+              <a href="/find_patient" class="btn btn-link">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-search" viewBox="0 0 16 16">
+                  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                </svg>
+              </a>
+            </h2>
         </header>
-           <!-- Search Button at the Top of Sidebar -->
-           <div class="text-center mb-3">
-            <a href="/find_patient" class="btn btn-link">
-                <img src="{{ url_for('static', filename='icons\search.jpeg') }}" alt="Search" style="width: 30px; height: 30px;">
-            </a>
-        </div>
         <div class="scrollbox">
             <div class="scrollbox-inner">
               <div class="container mt-3">

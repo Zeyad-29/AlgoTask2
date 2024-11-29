@@ -1,12 +1,6 @@
 {
     "patients": [
         {
-            "id": "240100001",
-            "name": "Ahmed Khaled",
-            "age": "19",
-            "gender": "male"
-        },
-        {
             "id": "240100002",
             "name": "Sara Hassan",
             "age": "22",

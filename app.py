@@ -88,9 +88,8 @@ def find_patient():
     with open(json_patients_path, 'r') as f:
         data = json.load(f)
 
-    patients = sorted(data['patients'], key=lambda x: int(x['id']))  # Sort patients by ID (integer comparison)
+    patients = data['patients']
     search_result = None
-
     if request.method == 'POST':
         patient_id = request.form['patient_id']  # Get the patient ID from the form
         try:
@@ -131,5 +130,30 @@ def find_patient():
     # Render the template with search results
     return render_template('Find_Patient.html', patients=patients, search_result=search_result)
 
-        
+
+@app.route('/delete_patient/<patient_id>', methods=['POST'])
+def delete_patient(patient_id):
+    try:
+        # Load the patients JSON file
+        with open(json_patients_path, 'r') as f:
+            data = json.load(f)
+
+        # Find the patient by ID and remove it
+        patient_to_delete = next((patient for patient in data['patients'] if patient['id'] == patient_id), None)
+
+        if patient_to_delete:
+            data['patients'] = [patient for patient in data['patients'] if patient['id'] != patient_id]
+            
+            # Save the updated data back to the JSON file
+            with open(json_patients_path, 'w') as f:
+                json.dump(data, f, indent=4)
+
+            # Redirect to the home page with a success message
+            return redirect(url_for('add_patient', message=f"Patient with ID {patient_id} has been deleted successfully"))
+        else:
+            # If patient not found, return an error message
+            return redirect(url_for('add_patient', message=f"No patient found with ID {patient_id}"))
+    except Exception as e:
+        # Handle any errors and show an error message
+        return redirect(url_for('add_patient', message=f"Error deleting patient: {str(e)}"))       
 
