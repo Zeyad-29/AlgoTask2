@@ -67,6 +67,13 @@
                                 <p class="card-text">Name: {{ search_result.patient.name }}</p>
                                 <p class="card-text">Age: {{ search_result.patient.age }}</p>
                                 <p class="card-text">Gender: {{ search_result.patient.gender }}</p>
+
+                                <!-- Delete Button -->
+                                <div class="mt-3 text-center">
+                                    <form action="/delete_patient/{{ search_result.patient.id }}" method="post">
+                                        <button type="submit" class="btn btn-secondary" style="width: 200px;">Delete Patient</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     {% else %}
