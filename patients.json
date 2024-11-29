@@ -1,5 +1,5 @@
-
-[
+{
+    "patients": [
         {
             "id": "240100001",
             "name": "Ahmed Khaled",
@@ -600,5 +600,5 @@
             "age": "28",
             "gender": "female"
         }
-
     ]
+}

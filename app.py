@@ -61,7 +61,7 @@ def add_patient_to_json(name, age, gender,id):
 def add_patient():
     message=''
     with open(json_patients_path, 'r') as f:
-        patients = json.load(f)
+        data = json.load(f)
     if (request.method=='POST'):
         patient_name = request.form['name']
         patient_age = request.form['age']
@@ -81,7 +81,6 @@ def add_patient():
 
     # Retrieve the optional message from the query string
     message = request.args.get('message', '')
-    print(patients)
-    return render_template('Home.html', message=message, patients=patients)
+    return render_template('Home.html', message=message, patients=data['patients'])
         
 
