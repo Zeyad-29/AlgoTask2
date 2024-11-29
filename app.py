@@ -81,7 +81,7 @@ def add_patient():
 
     # Retrieve the optional message from the query string
     message = request.args.get('message', '')
-
+    print(patients)
     return render_template('Home.html', message=message, patients=patients)
         
 
