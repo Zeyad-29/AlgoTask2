@@ -61,10 +61,14 @@ footer h2 {
     background: azure;
     display: flex;
 }
-.content h2 {
+.content form{
     font-size: 46px;
     margin: auto;
     background: linear-gradient(45deg,#7293d3,#4f8efb);
-    -webkit-text-fill-color: transparent;
-    -webkit-background-clip: text;
+    padding: 50px 50px 50px 50px;
+}
+.alert {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
 }
