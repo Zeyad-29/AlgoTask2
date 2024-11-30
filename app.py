@@ -137,13 +137,10 @@ def delete_patient(patient_id):
         # Load the patients JSON file
         with open(json_patients_path, 'r') as f:
             data = json.load(f)
+        len_of_patients_lst_before_deletion=len(data['patients'])
+        data['patients'] = [patient for patient in data['patients'] if patient['id'] != patient_id]
 
-        # Find the patient by ID and remove it
-        patient_to_delete = next((patient for patient in data['patients'] if patient['id'] == patient_id), None)
-
-        if patient_to_delete:
-            data['patients'] = [patient for patient in data['patients'] if patient['id'] != patient_id]
-            
+        if len(data['patients']) <len_of_patients_lst_before_deletion :  
             # Save the updated data back to the JSON file
             with open(json_patients_path, 'w') as f:
                 json.dump(data, f, indent=4)
