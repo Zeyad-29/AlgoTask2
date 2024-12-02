@@ -599,12 +599,6 @@
             "name": "Rania Tarek",
             "age": "28",
             "gender": "female"
-        },
-        {
-            "id": "241100001",
-            "name": "Ahmed Zaki",
-            "age": "55",
-            "gender": "male"
         }
     ]
 }
