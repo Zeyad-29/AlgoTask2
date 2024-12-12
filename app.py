@@ -74,7 +74,7 @@ def upload_files():
 @app.route('/show_results',methods=['GET'])
 def show_results():
     similarity = (session['lcs_len'] / max(len(session['son_dna']), len(session['father_dna']))) * 100
-    if similarity >= 50 :
+    if similarity >= 60 :
         conclusion = "Likely Parent-Child Relationship"
     else:
         conclusion = "Not Likely Parent-Child Relationship"
