@@ -1,11 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DNA File Upload</title>
-    <link rel="stylesheet" href="{{ url_for('static/', filename='css/style.css') }}">
-    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
     <div class="container">
@@ -13,10 +13,10 @@
         <form id="dnaUploadForm">
             <label for="sonFile">Upload Son's DNA File:</label>
             <input type="file" id="sonFile" name="sonFile" accept=".txt" required>
-            
+           
             <label for="fatherFile">Upload Father's DNA File:</label>
             <input type="file" id="fatherFile" name="fatherFile" accept=".txt" required>
-            
+           
             <button type="submit">Upload and Verify</button>
         </form>
         <div id="results"></div>
