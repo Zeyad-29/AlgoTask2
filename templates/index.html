@@ -14,17 +14,18 @@
     </header>
 
     <main>
-      <form id="dnaForm">
+      <form id="dnaForm" action="/upload" method="post" enctype="multipart/form-data">
         <div class="form-group">
           <label for="sonFile">Upload Sons' DNA File:</label>
-          <input type="file" id="sonFile" name="sonFile" accept=".csv" required>
+          <input type="file" id="sonFile" name="sonFile" accept=".txt" required>
         </div>
         <div class="form-group">
           <label for="fatherFile">Upload Fathers' DNA File:</label>
-          <input type="file" id="fatherFile" name="fatherFile" accept=".csv" required>
+          <input type="file" id="fatherFile" name="fatherFile" accept=".txt" required>
         </div>
         <button type="submit">Compare DNA</button>
       </form>
+      
 
       <div id="results" class="results">
         <h2>Results</h2>
