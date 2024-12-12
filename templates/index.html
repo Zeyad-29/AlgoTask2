@@ -1,26 +1,44 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DNA File Upload</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic DNA Comparison</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <div class="container">
-        <h1>DNA Lineage Verification</h1>
-        <form id="dnaUploadForm">
-            <label for="sonFile">Upload Son's DNA File:</label>
-            <input type="file" id="sonFile" name="sonFile" accept=".txt" required>
-           
-            <label for="fatherFile">Upload Father's DNA File:</label>
-            <input type="file" id="fatherFile" name="fatherFile" accept=".txt" required>
-           
-            <button type="submit">Upload and Verify</button>
-        </form>
-        <div id="results"></div>
-    </div>
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  <div class="container">
+    <header>
+      <h1>DNA Lineage Verification</h1>
+      <p>Compare multiple DNA sequences dynamically by uploading separate files for sons and fathers.</p>
+    </header>
+
+    <main>
+      <form id="dnaForm">
+        <div class="form-group">
+          <label for="sonFile">Upload Sons' DNA File:</label>
+          <input type="file" id="sonFile" name="sonFile" accept=".csv" required>
+        </div>
+        <div class="form-group">
+          <label for="fatherFile">Upload Fathers' DNA File:</label>
+          <input type="file" id="fatherFile" name="fatherFile" accept=".csv" required>
+        </div>
+        <button type="submit">Compare DNA</button>
+      </form>
+
+      <div id="results" class="results">
+        <h2>Results</h2>
+        <div id="resultGrid" class="result-grid">
+          <!-- Dynamic content will be added here -->
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <p>&copy;  DNA Analyzer. </p>
+    </footer>
+  </div>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
 </body>
 </html>
