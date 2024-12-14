@@ -31,12 +31,12 @@
     <div class="container my-5">
 
         <!-- Grid Table -->
-        <table class="table table-bordered">
+        <table class="table table-bordered text-center">
             <thead>
                 <tr class="table-success">
                     <th  class="table-light"></th>
-                    <th  class="table-light"></th>
-                    {% for char in son_dna %}
+                    <th  class="table-light">0</th>
+                    {% for char in father_dna %}
                         <th class="header-cell">{{ char }}</th>
                     {% endfor %}
                 </tr>
@@ -45,14 +45,14 @@
                 {% for i in range(0, grid|length) %}
                     <tr>
                         {%if i == 0%}
-                        <td> </td>
+                        <td>0</td>
                         {%else%}
-                        <td class="table-success">{{ father_dna[i-1] }}</td>
+                        <td class="table-success">{{ son_dna[i-1] }}</td>
                         {% endif %}
                         {% for j in range(0, grid[i]|length) %}
                             {%if i == 0 or j==0%}
                                 <td  class="table-dark">{{ grid[i][j] }}</td>
-                            {%elif (i==father_dna|length and j==son_dna|length)%}
+                            {%elif (j==father_dna|length and i==son_dna|length)%}
                                 <td  class="table-danger">{{ grid[i][j] }}</td>
                             {%else %}
                                 <td  class="table-light">{{ grid[i][j] }}</td>
