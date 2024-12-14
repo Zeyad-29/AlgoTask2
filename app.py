@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request,session,redirect
+from flask import Flask, render_template, request, session, redirect
 import os
 
 def lcs_length(seq1, seq2):
@@ -11,8 +11,23 @@ def lcs_length(seq1, seq2):
                 dp[i][j] = dp[i - 1][j - 1] + 1
             else:
                 dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
-    return dp,dp[m][n]
 
+    # Backtracking to find the LCS sequence
+    i, j = m, n
+    lcs_sequence = []
+
+    while i > 0 and j > 0:
+        if seq1[i - 1] == seq2[j - 1]:
+            lcs_sequence.append(seq1[i - 1])
+            i -= 1
+            j -= 1
+        elif dp[i - 1][j] > dp[i][j - 1]:
+            i -= 1
+        else:
+            j -= 1
+
+    lcs_sequence.reverse()  # Reverse the sequence to get the correct order
+    return dp, dp[m][n], ''.join(lcs_sequence)
 
 
 app = Flask(__name__,
@@ -54,32 +69,32 @@ def upload_files():
             print(father_content)
 
         # Store the read data in variables for processing
-        son_dna= son_content.strip()  
-        father_dna= father_content.strip()
+        son_dna = son_content.strip()
+        father_dna = father_content.strip()
 
         print("Stored Son's DNA:", son_dna)
         print("Stored Father's DNA:", father_dna)
-        session['son_dna']=son_dna
-        session['father_dna']=father_dna
-        session['grid'],session['lcs_len'] =lcs_length(str(son_dna),str(father_dna))
-        print(session['grid'])
+        session['son_dna'] = son_dna
+        session['father_dna'] = father_dna
+        session['grid'], session['lcs_len'], session['lcs_sequence'] = lcs_length(str(son_dna), str(father_dna))
+        print("LCS Sequence:", session['lcs_sequence'])
         return redirect("/show_results")
 
-        # Return success response (this can also return the variables if needed)
-        return {"message": "Files uploaded and stored successfully"}, 200
     else:
         return {"error": "Both files are required"}, 400
-    
-    
-@app.route('/show_results',methods=['GET'])
+
+
+@app.route('/show_results', methods=['GET'])
 def show_results():
     similarity = (session['lcs_len'] / max(len(session['son_dna']), len(session['father_dna']))) * 100
-    if similarity >= 60 :
+    if similarity >= 60:
         conclusion = "Likely Parent-Child Relationship"
     else:
         conclusion = "Not Likely Parent-Child Relationship"
-        
-    return render_template("results.html",grid=session['grid'],similarity=similarity,conclusion=conclusion,son_dna=session['son_dna'],father_dna=session['father_dna'])
+
+    return render_template("results.html", grid=session['grid'], similarity=similarity, conclusion=conclusion, 
+                           son_dna=session['son_dna'], father_dna=session['father_dna'], 
+                           lcs_sequence=session['lcs_sequence'])
 
 
 if __name__ == '__main__':
