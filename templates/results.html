@@ -21,7 +21,7 @@
         }
     </style>
 </head>
-<!-- Nanbar -->
+<!-- Navbar -->
 <nav class="navbar navbar-light bg-light">
     <a class="navbar-brand" href="/">
         <img src="https://cdn.pixabay.com/photo/2017/09/12/06/26/home-2741413_960_720.png" width="30" height="30" alt="">
@@ -32,11 +32,10 @@
 
         <!-- Grid Table -->
         <table class="table table-bordered">
-        <table class="table table-bordered text-center">
             <thead>
                 <tr class="table-success">
-                    <th  class="table-light"></th>
-                    <th  class="table-light">0</th>
+                    <th class="table-light"></th>
+                    <th class="table-light">0</th>
                     {% for char in father_dna %}
                         <th class="header-cell">{{ char }}</th>
                     {% endfor %}
@@ -45,30 +44,36 @@
             <tbody>
                 {% for i in range(0, grid|length) %}
                     <tr>
-                        {%if i == 0%}
-                        <td>0</td>
-                        {%else%}
-                        <td class="table-success">{{ son_dna[i-1] }}</td>
+                        {% if i == 0 %}
+                            <td>0</td>
+                        {% else %}
+                            <td class="table-success">{{ son_dna[i-1] }}</td>
                         {% endif %}
                         {% for j in range(0, grid[i]|length) %}
-                            {%if i == 0 or j==0%}
-                                <td  class="table-dark">{{ grid[i][j] }}</td>
-                            {%elif (j==father_dna|length and i==son_dna|length)%}
-                                <td  class="table-danger">{{ grid[i][j] }}</td>
-                            {%else %}
-                                <td  class="table-light">{{ grid[i][j] }}</td>
+                            {% if i == 0 or j == 0 %}
+                                <td class="table-dark">{{ grid[i][j] }}</td>
+                            {% elif (j == father_dna|length and i == son_dna|length) %}
+                                <td class="table-danger">{{ grid[i][j] }}</td>
+                            {% else %}
+                                <td class="table-light">{{ grid[i][j] }}</td>
                             {% endif %}
                         {% endfor %}
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
-    </div>
 
-    <!-- Message -->
-    <div class="alert alert-success">
-        <h4> Similarity : {{ similarity }} </h4>
-        <h4> Conclusion : {{ conclusion }} </h4>
+        <!-- LCS Sequence Display -->
+        <div class="alert alert-info">
+            <h4>Longest Common Subsequence (LCS):</h4>
+            <p><strong>{{ lcs_sequence }}</strong></p>
+        </div>
+
+        <!-- Message -->
+        <div class="alert alert-success">
+            <h4> Similarity : {{ similarity }}% </h4>
+            <h4> Conclusion : {{ conclusion }} </h4>
+        </div>
 
     </div>
 

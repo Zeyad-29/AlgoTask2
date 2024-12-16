@@ -92,9 +92,16 @@ def show_results():
     else:
         conclusion = "Not Likely Parent-Child Relationship"
 
-    return render_template("results.html", grid=session['grid'], similarity=similarity, conclusion=conclusion, 
-                           son_dna=session['son_dna'], father_dna=session['father_dna'], 
-                           lcs_sequence=session['lcs_sequence'])
+    return render_template(
+        "results.html",
+        grid=session['grid'], 
+        similarity=similarity, 
+        conclusion=conclusion, 
+        son_dna=session['son_dna'], 
+        father_dna=session['father_dna'], 
+        lcs_sequence=session['lcs_sequence']  # Include LCS sequence here
+    )
+
 
 
 if __name__ == '__main__':
